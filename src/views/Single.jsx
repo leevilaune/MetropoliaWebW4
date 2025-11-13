@@ -14,7 +14,7 @@ const Single = ({ setSelectedItem }) => {
     <div>
       <h2>{item.title}</h2>
       <p>{item.description || "No description"}</p>
-
+      <p>{item.username}</p>
       {item.media_type.startsWith("image") ? (
         <img src={item.filename} alt={item.title} className="single-view-media" />
       ) : item.media_type.startsWith("video") ? (

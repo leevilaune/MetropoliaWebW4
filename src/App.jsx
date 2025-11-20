@@ -4,6 +4,9 @@ import { Route, BrowserRouter, Routes } from "react-router";
 import Layout from "./components/Layout";
 import Home from "./views/Home";
 import Single from "./views/Single";
+import Login from "./views/Login";
+import Logout from "./views/Logout";
+import Profile from "./views/Profile";
 
 const App = () => {
   return (
@@ -15,6 +18,9 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path="/single" element={<Single />} />
         </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/profile" element={<Profile/>}/>
       </Routes>
     </BrowserRouter>
   );

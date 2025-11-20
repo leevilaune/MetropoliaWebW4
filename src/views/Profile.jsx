@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Profile = props => {
+const Profile = () => {
   return (
     <div>Profile</div>
   )

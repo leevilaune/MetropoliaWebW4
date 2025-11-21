@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Layout from "../components/Layout";
-import { useUser } from "../hooks/ApiHooks";
+import { useUser } from "../hooks/apiHooks";
 
 const Profile = () => {
   const { user, loading, error } = useUser();

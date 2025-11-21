@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, Outlet } from "react-router";
 import { useUserContext } from "../hooks/contextHooks";
+import { useNavigate } from "react-router";
 
 const Layout = () => {
-  const { user } = useUserContext();
+  const { handleAutoLogin, loading, user } = useUserContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    handleAutoLogin();
+  }, []);
   return (
     <div>
       <nav>

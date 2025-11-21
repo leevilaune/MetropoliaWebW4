@@ -9,6 +9,7 @@ import Logout from "./views/Logout";
 import Profile from "./views/Profile";
 import { UserProvider } from "./contexts/UserContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Upload from "./components/Upload";
 
 const App = () => {
   return (
@@ -31,6 +32,14 @@ const App = () => {
               </ProtectedRoute>
             }
           />{" "}
+          <Route
+            path="/upload"
+            element={
+              <ProtectedRoute>
+                <Upload />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </UserProvider>
     </BrowserRouter>

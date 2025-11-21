@@ -7,6 +7,7 @@ const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { auth } = useAuthentication();
   const { getUserByToken } = useUser();
   const navigate = useNavigate();
@@ -34,17 +35,22 @@ const UserProvider = ({ children }) => {
   };
 
   const handleAutoLogin = async () => {
+    const token = localStorage.getItem("TOKEN");
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
     try {
-      const token = localStorage.getItem("TOKEN");
-      if (token && token != "") {
-        const userData = await getUserByToken();
-        setUser(userData);
-        navigate("/");
-      }
-    } catch (e) {
-      console.log(e.message);
+      const userData = await getUserByToken();
+      setUser(userData);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
+
 
   return (
     <UserContext.Provider

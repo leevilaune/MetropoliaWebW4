@@ -39,11 +39,33 @@ const useMedia = () => {
     return await response.json();
   };
 
+  const deleteMedia = async (mediaData) => {
+    console.log("Deleting media ", mediaData);
+    const token = localStorage.getItem("TOKEN");
+
+    const response = await fetch(
+      import.meta.env.VITE_MEDIA_API + "/media" + `/${mediaData.media_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("Server response:", text);
+      throw new Error("Media DELETE failed");
+    }
+
+    return await response.json();
+  };
+
   useEffect(() => {
     getMedia();
   }, []);
-
-  return { mediaArray, postMedia };
+  return { mediaArray, postMedia, deleteMedia };
 };
 
 const useAuthentication = () => {

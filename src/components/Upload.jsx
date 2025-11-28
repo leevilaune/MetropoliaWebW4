@@ -28,12 +28,10 @@ const Upload = () => {
   const doUpload = async () => {
     if (!file) return;
     const token = localStorage.getItem("TOKEN");
-
     try {
       const uploadResult = await postFile(file);
       console.log(uploadResult);
       const filename = uploadResult.data.filename;
-      uploadResult.filename || uploadResult.file || uploadResult.url;
       const mediaType = file.type;
       const filesize = file.size;
       const mediaResult = await postMedia(
@@ -46,6 +44,7 @@ const Upload = () => {
         },
         token,
       );
+
       console.log("Created media:", mediaResult);
 
       navigate("/");

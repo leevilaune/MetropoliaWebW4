@@ -2,13 +2,13 @@ import { useState } from "react";
 import MediaRow from "../components/MediaRow";
 import SingleView from "../components/SingleView";
 import { useMedia } from "../hooks/apiHooks.js";
-
+import { useUserContext } from "../hooks/contextHooks.js";
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const {mediaArray} = useMedia();
-
+  const { mediaArray, deleteMedia } = useMedia();
+  const {user} = useUserContext();
   return (
     <>
       <h2>My Media</h2>
@@ -30,7 +30,9 @@ const Home = () => {
             <MediaRow
               key={item.media_id}
               item={item}
+              deleteMedia={deleteMedia}
               setSelectedItem={setSelectedItem}
+              user={user}
             />
           ))}
         </tbody>

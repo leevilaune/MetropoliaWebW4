@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router";
 
-const MediaRow = ({ item, user, deleteMedia }) => {
+import Likes from "./Likes";
+
+const MediaRow = ({ item, user, deleteMedia,setSelectedItem }) => {
   const navigate = useNavigate();
   const handleDelete = () => {
     deleteMedia(item);
@@ -11,7 +13,7 @@ const MediaRow = ({ item, user, deleteMedia }) => {
     user && (user.user_id === item.user_id || user.level_name === "admin");
 
   return (
-    <tr>
+    <tr key={item.media_id} onClick={() => setSelectedItem(item)}>
       <td>
         <img src={item.thumbnail} alt={item.title} />
       </td>
@@ -22,7 +24,7 @@ const MediaRow = ({ item, user, deleteMedia }) => {
       <td>{item.filesize}</td>
       <td>{item.media_type}</td>
 
-      <td>
+      <td className="view-button">
         <Link to="/single" state={{ item }}>
           Show
         </Link>

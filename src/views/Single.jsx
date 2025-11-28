@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router";
+import Likes from "../components/Likes";
 
 const Single = ({ setSelectedItem }) => {
   const { state } = useLocation();
@@ -22,7 +23,7 @@ const Single = ({ setSelectedItem }) => {
       ) : (
         <p>Unsupported media type</p>
       )}
-
+      <Likes media_id={item.media_id}></Likes>
       <button onClick={() => navigate(-1)}>Go back</button>
     </div>
   );

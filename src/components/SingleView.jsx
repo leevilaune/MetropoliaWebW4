@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import Likes from "./Likes";
 
 const SingleView = ({ item, setSelectedItem }) => {
   const dialogRef = useRef(null);
@@ -38,8 +39,9 @@ const SingleView = ({ item, setSelectedItem }) => {
       ) : (
         <p>Unsupported media type</p>
       )}
-
       <button onClick={() => setSelectedItem(null)}>Close</button>
+      <p>Test p</p>
+      <Likes media_id={item.media_id}></Likes>
     </dialog>
   );
 };

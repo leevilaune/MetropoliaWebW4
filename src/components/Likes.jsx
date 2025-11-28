@@ -13,25 +13,27 @@ const Likes = (media_id) => {
   useEffect(() => {
     const fetchLikes = async () => {
       try {
-        console.log(media_id);
         const data = await getLikesByMediaId(media_id.media_id);
-        console.log(user);
-        console.log(await getLikesByUser(user.user_id));
-        const userLikes = await getLikesByUser(user.user_id);
-        const userLike = userLikes.filter(
-          (m) => m.media_id == media_id.media_id,
-        )[0].like_id;
-        console.log(userLike);
-        if (userLike) {
-          setUserLikeId(userLike);
-        }
+        console.log(data);
         setLikeCount(data.count || 0);
+
+        const userLikes = await getLikesByUser(user.user_id);
+
+        if (!Array.isArray(userLikes)) {
+          setUserLikeId(0);
+          return;
+        }
+
+        const match = userLikes.find((m) => m.media_id === media_id.media_id);
+
+        setUserLikeId(match ? match.like_id : 0);
       } catch (err) {
         console.error("Error fetching likes:", err);
       }
     };
+
     fetchLikes();
-  }, [media_id]);
+  }, [media_id.media_id]);
   useEffect(() => {
     console.log("userLikeId updated:", userLikeId);
   }, [userLikeId]);
@@ -40,13 +42,9 @@ const Likes = (media_id) => {
       await postLike(media_id.media_id);
       setLikeCount((prev) => prev + 1);
       const userLikes = await getLikesByUser(user.user_id);
-      const userLike = userLikes.filter(
-        (m) => m.media_id == media_id.media_id,
-      )[0].like_id;
-      console.log(userLike);
-      if (userLike) {
-        setUserLikeId(userLike);
-      }
+      const filtered = userLikes.filter((m) => m.media_id == media_id.media_id);
+      const userLike = filtered.length > 0 ? filtered[0].like_id : 0;
+      setUserLikeId(userLike);
     } catch (err) {
       console.error("Error liking media:", err);
     }
